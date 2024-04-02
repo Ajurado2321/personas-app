@@ -17,11 +17,10 @@ class ComunaController extends Controller
     {
         // $comunas = Comuna::all();
         $comunas = DB::table('tb_comuna')
-        ->join('tb_municipio','tb_comuna.muni_codi','=','tb_municipio.muni_codi')
-        ->select('tb_comuna.*',"tb_municipio.muni_nomb")
-        ->get();
-        return view("comuna.index",["comunas"=>$comunas]);
-        
+            ->join('tb_municipio', 'tb_comuna.muni_codi', '=', 'tb_municipio.muni_codi')
+            ->select('tb_comuna.*', "tb_municipio.muni_nomb")
+            ->get();
+        return view("comuna.index", ["comunas" => $comunas]);
     }
 
     /**
@@ -34,10 +33,10 @@ class ComunaController extends Controller
         $municipios = DB::table('tb_municipio')
             ->orderBy('muni_nomb')
             ->get();
-        return view('comuna.new', ['municipios' => $municipios]);    
+        return view('comuna.new', ['municipios' => $municipios]);
     }
 
-   
+
     public function store(Request $request)
     {
         $comuna = new comuna();
@@ -48,14 +47,13 @@ class ComunaController extends Controller
         $comuna->save();
 
         $comunas = DB::table('tb_comuna')
-        ->join('tb_municipio','tb_comuna.muni_codi','=','tb_municipio.muni_codi')
-        ->select('tb_comuna.*',"tb_municipio.muni_nomb")
-        ->get();
-        return view("comuna.index",["comunas"=>$comunas]);
-
+            ->join('tb_municipio', 'tb_comuna.muni_codi', '=', 'tb_municipio.muni_codi')
+            ->select('tb_comuna.*', "tb_municipio.muni_nomb")
+            ->get();
+        return view("comuna.index", ["comunas" => $comunas]);
     }
 
-   
+
     public function show($id)
     {
         //
@@ -69,7 +67,11 @@ class ComunaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comuna = Comuna::find($id);
+        $municipios = DB::table('tb_municipio')
+            ->orderBy('muni_nomb')
+            ->get();
+        return view('comuna.edit', ['comuna' => $comuna, 'municipios' => $municipios]);
     }
 
     /**
@@ -81,19 +83,30 @@ class ComunaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $comuna = Comuna::find($id);
+
+        $comuna->comu_nomb = $request->name;
+        $comuna->muni_codi = $request->code;
+        $comuna->save();
+
+        $comunas = DB::table('tb_comuna')
+            ->join('tb_municipio', 'tb_comuna.muni_codi', '=', 'tb_municipio.muni_codi')
+            ->select('tb_comuna.*', "tb_municipio.muni_nomb")
+            ->get();
+
+        return view('comuna.index', ['comunas' => $comunas]);
     }
 
     public function destroy($id)
     {
-       $comuna = Comuna::find($id);
-       $comuna->delete();
+        $comuna = Comuna::find($id);
+        $comuna->delete();
 
-       $comunas = DB::table('tb_comuna')
-       ->join('tb_municipio', 'tb_comuna.muni_codi', '=', 'tb_municipio.muni_codi')
-       ->select('tb_comuna.*', 'tb_municipio.muni_nomb')
-       ->get();
+        $comunas = DB::table('tb_comuna')
+            ->join('tb_municipio', 'tb_comuna.muni_codi', '=', 'tb_municipio.muni_codi')
+            ->select('tb_comuna.*', 'tb_municipio.muni_nomb')
+            ->get();
 
-       return view('comuna.index', ['comunas' => $comunas]);
+        return view('comuna.index', ['comunas' => $comunas]);
     }
 }
