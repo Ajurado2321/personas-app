@@ -3,6 +3,7 @@
 use App\Http\Controllers\ComunaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MunicipioController;
+use App\Models\Municipio;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,4 +20,6 @@ Route::get('/comunas/{comuna}/edit', [ComunaController::class, 'edit'])->name('c
 Route::get('/municipios', [MunicipioController::class, 'index'])->name('municipios.index');
 Route::post('/municipios', [MunicipioController::class, 'store'])->name('municipios.store');
 Route::get('/municipios/create', [MunicipioController::class, 'create'])->name('municipios.create');
+Route::put('/municipios/{municipio}', [MunicipioController::class, 'update'])->name('municipios.update');
+Route::get('/municipios/{municipio}/edit', [MunicipioController::class, 'edit'])->name('municipios.edit');
 
