@@ -22,4 +22,5 @@ Route::post('/municipios', [MunicipioController::class, 'store'])->name('municip
 Route::get('/municipios/create', [MunicipioController::class, 'create'])->name('municipios.create');
 Route::put('/municipios/{municipio}', [MunicipioController::class, 'update'])->name('municipios.update');
 Route::get('/municipios/{municipio}/edit', [MunicipioController::class, 'edit'])->name('municipios.edit');
+Route::delete('/municipios/{municipio}', [MunicipioController::class, 'destroy'])->name('municipios.destroy');
 
