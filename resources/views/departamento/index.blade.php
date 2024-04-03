@@ -9,20 +9,20 @@
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-  <title>listado comunas</title>
+  <title>listado departamentos</title>
 </head>
 
 
 <body>
   <div class="container">
-    <h1>listado comunas</h1>
+    <h1>listado departamentos</h1>
     <a href="{{ route('departamentos.create')}}" class="btn btn-success">Add</a>
     <table class="table">
       <thead>
         <tr>
           <th scope="col">code</th>
-          <th scope="col">commune</th>
-          <th scope="col">municipality</th>
+          <th scope="col">departamentos</th>
+          <th scope="col">pais</th>
           <th scope="col">actions</th>
         </tr>
       </thead>
@@ -33,7 +33,14 @@
           <td>{{ $departamento->depa_nomb }}</td>
           <td>{{ $departamento->pais_nomb }}</td>
           <td>
-                //
+            <a href="{{route('departamentos.edit', ['departamento'=>$departamento->depa_codi]) }}"
+              class="btn btn-info"> Edit</a></li>
+      <form action="{{ route('departamentos.destroy', ['departamento' => $departamento->depa_codi]) }}" 
+          method='POST' style="display: inline-block">
+        @method('delete')
+        @csrf
+        <input class="btn btn-danger" type="submit" value="Delete">
+      </form>
            
           </td>
         </tr>

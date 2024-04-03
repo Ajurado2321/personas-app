@@ -25,7 +25,7 @@
         <div id="idHelp" class="form-text">Commune code</div>
       </div>
       <div class="mb-3">
-        <label for="name" class="form-label">Commune</label>
+        <label for="name" class="form-label">Departamentos</label>
         <input type="text" required class="form-control" id="name" aria-describedby="nameHelp" name="name" placeholder="Comuna name.">
       </div>
 
